@@ -1,7 +1,7 @@
 //      require 
 
 const express = require('express');
-const { test } = require('./controller/testcontroller');
+const { test } = require('./controller/studentController');
 const app = express();
 
 app.use('/',test);
