@@ -1,16 +1,16 @@
  // define model
 
  module.exports = (sequelize , DataTypes)=>{
-    const mentor = sequelize.define('mentors',{
+    const student = sequelize.define('students', {
         id:{
             type:DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        mentor_fast_name:{
+        student_fast_name:{
             type:DataTypes.STRING(50)
         },
-        mentor_last_name:{
+        student_last_name:{
             type:DataTypes.STRING(50)
         },
         phone:{
@@ -25,12 +25,12 @@
         state:{
             type:DataTypes.STRING(50)
         }
-        // student_ID:{
+        // mentor_ID:{
         //     type:DataTypes.INTEGER
         // }
     },{
         timestamps:false,
     })
 
-    return mentor;
+    return student;
 };

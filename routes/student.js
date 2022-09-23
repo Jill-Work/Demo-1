@@ -1,10 +1,18 @@
-//      require file
-
 const express = require('express');
 const router = express.Router();
 
-const test = require('../controller/testcontroller');
+
+const studentController = require('../controller/studentController');
 
 
+router.get('/:id',studentController.getStudent);
 
-router.get('/',test);
+router.get('/',studentController.getStudents);
+
+router.post('/',studentController.insertStudent);
+
+router.put('/:id',studentController.updateStudent);
+
+router.delete('/:id',studentController.deleteStudent);
+
+module.exports = router;

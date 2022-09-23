@@ -1,10 +1,19 @@
-//      require file
-
 const express = require('express');
 const router = express.Router();
 
-const test = require('../controller/testcontroller');
+
+const mentorController = require('../controller/mentorController');
 
 
+router.get('/:id',mentorController.getMentor);
 
-router.get('/',test);
+router.get('/',mentorController.getMentors);
+
+router.post('/',mentorController.insertMentor);
+
+router.put('/:id',mentorController.updateMentor);
+
+router.delete('/:id',mentorController.deleteMentor);
+
+
+module.exports = router;
