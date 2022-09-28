@@ -24,6 +24,7 @@ exports.getStudents = async (condition) => {
 
 // insert student
 exports.insertStudent = async (data) => {
+    console.log("data   ==>>  "+data)
     return await model.student.create(data);
 };
 
@@ -33,6 +34,15 @@ exports.updateStudent = async (id,update) => {
 };
 
 // delete student
-exports.deleteStudent = async (data) => {
-    return await model.student.destroy({});
+exports.deleteStudent = async (id) => {
+    return await model.student.destroy({where:{id}});
+};
+
+//  sign in
+exports.studentSignin = async (email) => {
+    console.log("service ==>>"+email)
+    return await model.student.findOne({
+        where : {email:email},
+
+    });
 };

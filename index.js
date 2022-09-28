@@ -28,14 +28,14 @@ app.post('/test', async (req, res) => {
         // let a = 1;
 //     for (i = a; i < 21; i++) {
 //         const name = {
-//             "mentor_fast_name": `mentor ${a}`,
+//             "mentor_first_name": `mentor ${a}`,
 //             "mentor_last_name": `mentor ${a}`,
 //             "phone": `9876543${a}`,
 //             "email": `mentor${a}@gmail.com`,
 //             "city": "rajkot",
 //             "state": "gujarat"
 
-//             // "student_fast_name": `student ${a}`,
+//             // "student_first_name": `student ${a}`,
 //             // "student_last_name": `student ${a}`,
 //             // "phone": `9876543${a}`,
 //             // "email": `student${a}@gmail.com`,

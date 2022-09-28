@@ -7,7 +7,10 @@
             autoIncrement: true,
             primaryKey: true
         },
-        mentor_fast_name:{
+        password:{
+            type:DataTypes.STRING(50)
+        },
+        mentor_first_name:{
             type:DataTypes.STRING(50)
         },
         mentor_last_name:{
@@ -25,9 +28,6 @@
         state:{
             type:DataTypes.STRING(50)
         }
-        // student_ID:{
-        //     type:DataTypes.INTEGER
-        // }
     },{
         timestamps:false,
     })

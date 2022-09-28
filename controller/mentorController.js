@@ -22,7 +22,7 @@ exports.getMentors = async(req,res) => {
     if(req.query.search){
         condition = {
             where: {
-                 mentor_fast_name:req.query.search   
+                 mentor_first_name:req.query.search   
             }
         }
     }   else    {
@@ -60,7 +60,7 @@ exports.insertMentor = async(req,res) => {
 exports.updateMentor = async(req,res) => {
     const id = req.params.id;
     const update = {
-        mentor_fast_name:req.body.mentor_fast_name,
+        mentor_first_name:req.body.mentor_first_name,
         mentor_last_name:req.body.mentor_last_name,
         phone:req.body.phone,
         email:req.body.email,
