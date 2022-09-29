@@ -41,3 +41,12 @@ exports.updateMentor = async (id, update) => {
 exports.deleteMentor = async (data) => {
     return await model.mentor.destroy({});
 };
+
+//  sign in
+exports.mentorSignin = async (email) => {
+    console.log("service ==>>"+email)
+    return await model.mentor.findOne({
+        where : {email:email},
+
+    });
+};

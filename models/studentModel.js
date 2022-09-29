@@ -1,6 +1,9 @@
  // require module
  const express = require('express');
+
  const app = express();
+
+ 
  
 
  // define model
@@ -13,7 +16,7 @@
             primaryKey: true
         },
         password:{
-            type:DataTypes.STRING(50)
+            type:DataTypes.STRING(100)
         },
         student_first_name:{
             type:DataTypes.STRING(50)
@@ -35,11 +38,29 @@
         }
     },{
         timestamps:false,
+
+    
     })
+
+
+    
+    // student.methods.generateHash = async function(password) {
+    //     return await bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    // };
+    
+    // student.methods.validPassword = async function(password) {
+    //     return await bcrypt.compareSync(password, this.local.password);
+    // };
 
     return student;
 };
 
+
+// student.pre("insert", async function()
+//     {
+//         this.password = await bcrypt.hash(this.password,10);
+//         console.log("pass  ==>>   "+this.password)
+//     })
 
 
 // const updateStudent = {

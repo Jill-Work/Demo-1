@@ -40,21 +40,31 @@ exports.getMentors = async(req,res) => {
 //      insert Mentor
 exports.insertMentor = async(req,res) => {
     const add = req.body;
-    const user = await MentorService.insertMentor(add);
 
-    //student_mentors table insert
-    for(i=0; i<add.student_id.length; i++){
-        console.log('data is   is  '+add.student_id[i])
-        let studentMentor = {
-            "student_id": add.student_id[i],
-            "mentor_id": user.id
-        };
-        await model.student_mentor.create(studentMentor) ;
+    if (add.password === add.conpassword) 
+    {
+        const user = await MentorService.insertMentor(add);
+
+        //student_mentors table insert 
+        for(i=0; i<add.student_id.length; i++)
+        {
+            console.log('data is   is  '+add.student_id[i])
+            let studentMentor = {
+                    "student_id": add.student_id[i],
+                    "mentor_id": user.id
+                };
+            await model.student_mentor.create(studentMentor) ;
         }
 
     res.send(user);
     console.log("insert Mentor    "+user);
-};
+
+    } else {
+        res.send("invalid credential");
+        console.log("invalid credential");
+    }
+
+}
 
 //      update Mentor
 exports.updateMentor = async(req,res) => {
@@ -79,3 +89,20 @@ exports.deleteMentor = async(req,res) => {
     res.send(user);
     console.log("deleted Mentor id is  "+id);
 };
+
+//      sign in
+exports.Signin = async (req,res) => {
+    
+    console.log(req.body);
+    const pass = req.body.password;
+    const email = req.body.email;
+    const user = await MentorService.mentorSignin(email);
+    console.log("user is  ===>>"+user)
+
+    if (user.password === pass) {
+        res.send(user);
+    }else{
+        res.send("invalid details");
+    }
+    
+}

@@ -16,6 +16,6 @@ router.delete('/:id',studentController.deleteStudent);
 
 
 
-router.post('/signin',studentController.Signin)
+router.post('/signin',studentController.Signin);
 
 module.exports = router;
