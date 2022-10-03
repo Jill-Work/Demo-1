@@ -6,6 +6,9 @@ const insertMentor = require('../service/student_mentors');
 const model = require('../models/db');
 const studentUpdate = require('../models/studentModel');
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+const env = require("../.env")
+
 
 
 
@@ -15,7 +18,7 @@ exports.getStudent = async (req, res) => {
     const id = req.params.id;
     const user = await studentService.getStudent(id);
     res.send(user);
-    console.log("get student     " + id)
+    console.log("get student  in student controller ==>>   " + JSON.stringify(user))
 };
 
 //      get studentS
@@ -40,7 +43,7 @@ exports.getStudents = async (req, res) => {
 
     const user = await studentService.getStudents(condition)
     res.send(user);
-    console.log("get students");
+    console.log("get students in student controller    ==>> "+JSON.stringify(user));
 };
 
 //      insert student
@@ -50,33 +53,25 @@ exports.insertStudent = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     password = await bcrypt.hash(password, salt);
 
-    console.log("pass ==>> " + password)
-
-
-
     if (add.password === add.conpassword) {
         add.password = password;
-        
+
         const user = await studentService.insertStudent(add);
 
         //student_mentors table insert
         for (i = 0; i < add.mentor_id.length; i++) {
-            console.log('data is   is  ' + add.mentor_id[i])
             let studentMentor = {
                 "student_id": user.id,
                 "mentor_id": add.mentor_id[i]
             };
             await model.student_mentor.create(studentMentor);
         };
-
-        console.log("insert student    " + user);
         res.send(user);
+        console.log("create student is in student controller  ==>>  "+JSON.stringify(user));
     } else {
-        res.send("invalid credential");
-        console.log("invalid credential");
+        res.send("invalid confirm password");
+        console.log("invalid confirm password in student controller");
     }
-
-
 };
 
 //      update student
@@ -92,7 +87,7 @@ exports.updateStudent = async (req, res) => {
     }
     const user = await studentService.updateStudent(id, update);
     res.send(user);
-    console.log("update student    " + user);
+    console.log("update student in student controller  ==>>  " + JSON.stringify(user));
 };
 
 //      delete student
@@ -100,32 +95,41 @@ exports.deleteStudent = async (req, res) => {
     const id = req.params.id;
     const user = await studentService.deleteStudent(id);
     res.send("deleted is was = " + id);
-    console.log("deleted student id is  " + id);
+    console.log("deleted student id is in student controller  ==>>  " + id);
 };
 
-//      sign in student
-exports.Signin = async (req, res) => {
+//      authorization
+exports.auth = async (req, res) => {
+    const email = req.email.email;
+    console.log(email)
+    const user = await studentService.getStudent(email);
+    res.send(user);
+    console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
 
-    
+}
+
+
+
+
+//      log in student
+exports.Signin = async (req, res) => {
     const pass = req.body.password;
     const email = req.body.email;
     const user = await studentService.studentSignin(email);
     const dbpass = user.password;
-
-
-    
-    console.log("db pass  ==>> "+dbpass)
-    
-      bcrypt.compare(pass,dbpass ,(err, data)=>{
-        
-       
-        if(err) throw err
+    bcrypt.compare(pass, dbpass, (err, data) => {
+        if (err) throw err
 
         if (data) {
-            res.send(user);
+            const token = jwt.sign({ "email": email }, SECRET_KEY);
+            console.log("token   ==>.  " + token);
+            res.status(200).json({ token : token });
+            // res.send(user);
+            // console.log("log in in student controller  ==>>  "+JSON.stringify(user));
+
         } else {
             res.send("invalid details");
-        }
-    }) 
+            console.log("invalid details in student controller");
 
-}
+    }
+})}

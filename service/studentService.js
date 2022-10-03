@@ -1,4 +1,5 @@
 const model = require('../models/db')
+
 // get student
 exports.getStudent = async (id) => {
     return await model.student.findOne({
@@ -24,7 +25,6 @@ exports.getStudents = async (condition) => {
 
 // insert student
 exports.insertStudent = async (data) => {
-    console.log("data   ==>>  "+data)
     return await model.student.create(data);
 };
 
@@ -40,9 +40,21 @@ exports.deleteStudent = async (id) => {
 
 //  sign in
 exports.studentSignin = async (email) => {
-    console.log("service ==>>"+email)
     return await model.student.findOne({
-        where : {email:email},
+        where : {email:email}
 
     });
+};
+
+// log in student
+exports.getStudent = async (email) => {
+    return await model.student.findOne({
+        
+        where : {email:email},
+        include: [
+            {
+                model: model.mentor
+            }
+        ]
+    })
 };

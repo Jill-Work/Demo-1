@@ -16,6 +16,5 @@
     },{
         timestamps: false,
     })
-
     return student_mentor;
 };

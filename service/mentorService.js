@@ -23,7 +23,6 @@ exports.getMentors = async (condition) => {
                     model: model.student
                 }
             ]
-
         });
 };
 
@@ -44,7 +43,6 @@ exports.deleteMentor = async (data) => {
 
 //  sign in
 exports.mentorSignin = async (email) => {
-    console.log("service ==>>"+email)
     return await model.mentor.findOne({
         where : {email:email},
 

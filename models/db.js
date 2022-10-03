@@ -6,7 +6,8 @@ const student_to_mentor = require('./student_mentor');
 //      passing database = = db name , username , password , host  , dialect
 const sequelize = new Sequelize('management', 'root', '', {
     host:'localhost',
-    dialect:'mysql'
+    dialect:'mysql',
+    logging: false      // to log off in console
 });
 
 
