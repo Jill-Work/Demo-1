@@ -17,7 +17,7 @@ const env = require("../.env")
 exports.getStudent = async (req, res) => {
     const id = req.params.id;
     const user = await studentService.getStudent(id);
-    res.send(user);
+    // res.send(user);
     console.log("get student  in student controller ==>>   " + JSON.stringify(user))
 };
 
@@ -99,14 +99,14 @@ exports.deleteStudent = async (req, res) => {
 };
 
 //      authorization
-exports.auth = async (req, res) => {
-    const email = req.email.email;
-    console.log(email)
-    const user = await studentService.getStudent(email);
-    res.send(user);
-    console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
+// exports.auth = async (req, res) => {
+//     // const email = req.email;
+//     // console.log(email)
+//     const user = await studentService.getStudent(email);
+//     res.send(user);
+//     console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
 
-}
+// }
 
 
 
@@ -121,7 +121,7 @@ exports.Signin = async (req, res) => {
         if (err) throw err
 
         if (data) {
-            const token = jwt.sign({ "email": email }, SECRET_KEY);
+            const token = jwt.sign({ "email": user }, SECRET_KEY);
             console.log("token   ==>.  " + token);
             res.status(200).json({ token : token });
             // res.send(user);

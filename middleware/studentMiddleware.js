@@ -11,12 +11,15 @@ exports.studentAuth = (req, res, next) => {
 
   if (authorization == null) return res.send("null value");
 
-  jwt.verify(tokenId, SECRET_KEY, (err, email) => {
+  //pass email to get mentor details also with route change
+  
+  jwt.verify(tokenId, SECRET_KEY, (err, user) => {
     if (err) {
       res.send("error is  " + err)
     } else {
-      req.email = email;
-      next();
+      req.user = user;
+      res.send(user)
+      // next();
     }
   })
 };

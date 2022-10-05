@@ -5,6 +5,9 @@ const studentMiddelware = require("../middleware/studentMiddleware")
 
 const studentController = require('../controller/studentController');
 
+
+router.get('/me',studentMiddelware.studentAuth)
+
 router.get('/:id',studentController.getStudent);
 
 router.get('/',studentController.getStudents);
@@ -19,6 +22,5 @@ router.delete('/:id',studentController.deleteStudent);
 
 router.post('/signin',studentController.Signin);
 
-router.post('/login',studentMiddelware.studentAuth,studentController.auth)
 
 module.exports = router;
