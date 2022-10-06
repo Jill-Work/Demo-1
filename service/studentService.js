@@ -3,12 +3,12 @@ const model = require('../models/db')
 // get student
 exports.getStudent = async (id) => {
     return await model.student.findOne({
-        where : {id:id},
+        where : {id},
         include: [
         {
             model: model.mentor
-        }
-    ]});
+        }]
+    });
 };
 
 // get students
@@ -41,20 +41,52 @@ exports.deleteStudent = async (id) => {
 //  sign in
 exports.studentSignin = async (email) => {
     return await model.student.findOne({
-        where : {email:email}
+        where : {email}
 
     });
 };
 
 // log in student
-exports.getStudent = async (email) => {
-    return await model.student.findOne({
+// exports.getStudent = async (email) => {
+//     return await model.student.findOne({
         
-        where : {email:email},
-        include: [
-            {
-                model: model.mentor
-            }
-        ]
-    })
+//         where : {email:email},
+//         include: [
+//             {
+//                 model: model.mentor
+//             }
+//         ]
+//     })
+// };
+
+exports.switch = async (data) => {
+    const city = data.city ;
+    console.log("city ==>> "+city);
+    // switch (city) {
+    //     case "Ahmedabad":
+    //         console.log("Ahmedabad");
+    //         break;
+    //     case "Mumbai":
+    //         console.log("Mumbai");
+    //         break;
+    //     default:
+    //         console.log("India");
+    //         break;
+    // }
+    switch (city) {
+        case "student":
+        console.log("service data  ==>>  "+data);
+        console.log("running in service")
+        return await model.student.create(data);
+        break;
+
+        case "mentor":
+            console.log("service data  ==>>  "+JSON.stringify(data));
+            return await model.mentor.create(data);
+        break;
+
+    default:
+        break;
+}
+
 };

@@ -18,22 +18,30 @@ exports.studentAuth = (req, res, next) => {
       res.send("error is  " + err)
     } else {
       req.user = user;
-      res.send(user)
-      // next();
+      const params = req.params.id
+      if (user.email.id == params ) {
+        console.log("done")
+        next();
+      }else {
+        res.send({
+          message : "NOT FOUND"
+        });
+      }
     }
   })
 };
 
 exports.insertStudent = (req, res, next) => {
   const validation = Joi.object({
-    password:Joi.string().require(),
+    password:Joi.string().required(),
+    conpassword:Joi.string().required(),
     student_first_name:Joi.string().required(),
     student_last_name:Joi.string().min(3).max(20).required(),
     phone:Joi.string().required(),
     email:Joi.string().required(),
     city:Joi.string().required(),
     state:Joi.string().required(),
-
+    mentor_id:Joi.optional(),
   }).unknown(false);//.unknown(true)
   const { error } = validation.validate(req.body,{abortEarly:false});
   if (error) {

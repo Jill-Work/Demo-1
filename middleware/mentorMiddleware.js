@@ -24,12 +24,14 @@ exports.mentorAuth = (req, res, next) => {
 exports.insertMentor = (req, res, next) => {
   const validation = Joi.object({
     password:Joi.string().require(),
+    conpassword:Joi.string().required(),
     mentor_first_name:Joi.string().required(),
     mentor_last_name:Joi.string().min(3).max(20).required(),
     phone:Joi.string().required(),
     email:Joi.string().required(),
     city:Joi.string().required(),
     state:Joi.string().required(),
+    student_id:Joi.optional(),
 
   }).unknown(false);//.unknown(true)
   const { error } = validation.validate(req.body,{abortEarly:false});

@@ -8,6 +8,7 @@ const studentUpdate = require('../models/studentModel');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 const env = require("../.env")
+const middleware= require("../middleware/studentMiddleware")
 
 
 
@@ -15,9 +16,11 @@ const env = require("../.env")
 
 //      get student
 exports.getStudent = async (req, res) => {
+    // const id = req.user.email.id;
     const id = req.params.id;
+    console.log("id is ==>>  "+id);
     const user = await studentService.getStudent(id);
-    // res.send(user);
+    res.send(user);
     console.log("get student  in student controller ==>>   " + JSON.stringify(user))
 };
 
@@ -99,14 +102,15 @@ exports.deleteStudent = async (req, res) => {
 };
 
 //      authorization
-// exports.auth = async (req, res) => {
-//     // const email = req.email;
-//     // console.log(email)
-//     const user = await studentService.getStudent(email);
-//     res.send(user);
-//     console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
+exports.auth = async (req, res) => {
+    console.log("Req email", req.user.email.id);
+    const id = req.user.email.id;
+    console.log(id)
+    const user = await studentService.studentSignin(id);
+    res.send(user);
+    console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
 
-// }
+}
 
 
 
@@ -125,7 +129,7 @@ exports.Signin = async (req, res) => {
             console.log("token   ==>.  " + token);
             res.status(200).json({ token : token });
             // res.send(user);
-            // console.log("log in in student controller  ==>>  "+JSON.stringify(user));
+            console.log("log in in student controller  ==>>  "+JSON.stringify(user));
 
         } else {
             res.send("invalid details");
@@ -133,3 +137,34 @@ exports.Signin = async (req, res) => {
 
     }
 })}
+
+
+
+// exports.insertStudent = async (req, res) => {
+
+//     const add = req.body;
+//     var password = req.body.password;
+//     const salt = await bcrypt.genSalt(10);
+//     password = await bcrypt.hash(password, salt);
+
+//     if (add.password === add.conpassword) {
+//         add.password = password;
+
+//         const user = await studentService.switch(add);
+//         console.log("user ==>" + user);
+//         student_mentors table insert
+//         for (i = 0; i < add.mentor_id.length; i++) {
+//             let studentMentor = {
+//                 "student_id": user.id,
+//                 "mentor_id": add.mentor_id[i]
+//             };
+//             await model.student_mentor.create(studentMentor);
+//         };
+//         res.send(user);
+//         console.log("create student is in student controller  ==>>  "+JSON.stringify(user));
+//     } else {
+//         res.send("invalid confirm password");
+//         console.log("invalid confirm password in student controller");
+//     }
+// };
+
