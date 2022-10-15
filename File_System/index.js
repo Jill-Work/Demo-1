@@ -16,6 +16,13 @@ const fsenginee = multer.diskStorage({
 
 const upload = multer({storage:fsenginee})
 
+//   this is middleware which use to upload of multi field in postman 
+// const multiple = upload.fields([
+//     {name:"file-1", maxCount: 2},
+//     {nmae:"file-2", maxCount: 2}
+// ])
+
+
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname,"../File_System/index.html"))
 })
