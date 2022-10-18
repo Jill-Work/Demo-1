@@ -21,6 +21,6 @@ router.delete('/:id',studentMiddleware.studentAuth,studentController.deleteStude
 
 router.post('/signin',studentController.Signin);
 
-router.post('/login',studentMiddleware.studentAuth,studentController.auth)
+router.post('/login/:id',studentMiddleware.studentAuth,studentController.auth)
 
 module.exports = router;

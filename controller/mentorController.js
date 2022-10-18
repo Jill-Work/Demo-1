@@ -97,7 +97,8 @@ exports.deleteMentor = async(req,res) => {
 
 //      authorization
 exports.auth = async (req, res) => {
-    const email = req.email.email;
+    const id = req.email.email.id;
+    console.log("Req email", id);
     const user = await studentService.getMentor(email);
     res.send(user);
     console.log("authorize in mentor controller  ==>>  "+ JSON.stringify(user));

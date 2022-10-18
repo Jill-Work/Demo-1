@@ -20,7 +20,7 @@ exports.studentAuth = (req, res, next) => {
       req.user = user;
       const params = req.params.id
       if (user.email.id == params ) {
-        console.log("done")
+        console.log("done auth")
         next();
       }else {
         res.send({
@@ -59,6 +59,7 @@ exports.updateStudent = (req, res, next) => {
   const validation = Joi.object({
 
       password:Joi.string().optional(),
+      conpassword:Joi.string().optional(),
       student_first_name:Joi.string().optional(),
       student_last_name:Joi.string().min(3).max(20).optional(),
       phone:Joi.string().optional(),

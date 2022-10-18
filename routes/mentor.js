@@ -19,7 +19,7 @@ router.delete('/:id',mentorController.deleteMentor);
 
 router.post('/signin',mentorController.Signin);
 
-router.post('/login',mentorMiddleware.mentorAuth,mentorController.auth)
+router.post('/login/:id',mentorMiddleware.mentorAuth,mentorController.auth)
 
 
 

@@ -80,7 +80,16 @@ exports.insertStudent = async (req, res) => {
 //      update student
 exports.updateStudent = async (req, res) => {
     const id = req.params.id;
+    var password = req.body.password;
+    if (password === req.body.conpassword) {
+        
+    
+    const salt = await bcrypt.genSalt(10);
+    const updatePassword = await bcrypt.hash(password, salt);
+
     const update = {
+        password:updatePassword,
+        conpassword:req.body.conpassword,
         student_first_name: req.body.student_first_name,
         student_last_name: req.body.student_last_name,
         phone: req.body.phone,
@@ -91,6 +100,9 @@ exports.updateStudent = async (req, res) => {
     const user = await studentService.updateStudent(id, update);
     res.send(user);
     console.log("update student in student controller  ==>>  " + JSON.stringify(user));
+    }else{
+        res.send("pass not match")
+    }
 };
 
 //      delete student
@@ -106,7 +118,7 @@ exports.auth = async (req, res) => {
     console.log("Req email", req.user.email.id);
     const id = req.user.email.id;
     console.log(id)
-    const user = await studentService.studentSignin(id);
+    const user = await studentService.getStudent(id);
     res.send(user);
     console.log("authorize in student controller  ==>>  "+ JSON.stringify(user));
 

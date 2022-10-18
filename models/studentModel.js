@@ -15,6 +15,9 @@
             autoIncrement: true,
             primaryKey: true
         },
+        conpassword:{
+            type:DataTypes.STRING(100)
+        },
         password:{
             type:DataTypes.STRING(100)
         },
