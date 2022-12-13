@@ -1,30 +1,19 @@
- // require module
- const express = require('express');
-
- const app = express();
-
- 
- 
-
  // define model
 
  module.exports = (sequelize , DataTypes)=>{
-    const student = sequelize.define('students', {
+    const mentor = sequelize.define('mentors',{
         id:{
             type:DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        conpassword:{
-            type:DataTypes.STRING(100)
-        },
         password:{
-            type:DataTypes.STRING(100)
-        },
-        student_first_name:{
             type:DataTypes.STRING(50)
         },
-        student_last_name:{
+        mentor_first_name:{
+            type:DataTypes.STRING(50)
+        },
+        mentor_last_name:{
             type:DataTypes.STRING(50)
         },
         phone:{
@@ -38,12 +27,10 @@
         },
         state:{
             type:DataTypes.STRING(50)
-        },
-        
+        }
     },{
         timestamps:false,
     })
-    return student;
+
+    return mentor;
 };
-
-
